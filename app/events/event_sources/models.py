@@ -10,13 +10,13 @@ class EventSource(Base):
     data_source_name: Mapped[str]
     name: Mapped[str]
     db_type: Mapped[str] = mapped_column(String(20))
-    driver: Mapped[str] = mapped_column(String(50))
-    username: Mapped[str] = mapped_column(String(250))
-    password: Mapped[str] = mapped_column(String(250))
-    host: Mapped[str] = mapped_column(String(250))
-    port: Mapped[int]
-    database_name: Mapped[str] = mapped_column(String(100))
-    additional_params: Mapped[JSON] = mapped_column(JSON, nullable=True)
+    # driver: Mapped[str] = mapped_column(String(50))
+    # username: Mapped[str] = mapped_column(String(250))
+    # password: Mapped[str] = mapped_column(String(250))
+    # host: Mapped[str] = mapped_column(String(250))
+    # port: Mapped[int]
+    # database_name: Mapped[str] = mapped_column(String(100))
+    conn_params: Mapped[JSON] = mapped_column(JSON, nullable=True)
 
     events: Mapped[List["Event"]] = relationship(
         "Event",

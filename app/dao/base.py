@@ -1,4 +1,4 @@
-from sqlalchemy import select, insert
+from sqlalchemy import select, insert, and_
 
 from app.database import async_session_maker
 
@@ -12,6 +12,7 @@ class BaseDAO:
             query = (
                 select(cls.model)
                 .filter_by(id=model_id)
+                .where(cls.model.is_deleted.is_(False))
             )
             result = await session.execute(query)
             return result.scalars().one_or_none()
@@ -22,6 +23,7 @@ class BaseDAO:
             query = (
                 select(cls.model)
                 .filter_by(**filter_by)
+                .where(cls.model.is_deleted.is_(False))
             )
             result = await session.execute(query)
 
@@ -33,6 +35,8 @@ class BaseDAO:
             query = (
                 select(cls.model)
                 .filter_by(**filter_by)
+                .where(cls.model.is_deleted.is_(False))
+                .limit(100)
             )
             result = await session.execute(query)
             return result.scalars().all()

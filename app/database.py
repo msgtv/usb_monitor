@@ -18,17 +18,19 @@ from app.config import settings
 if settings.MODE == 'TEST':
     DATABASE_URL = (
         f'postgresql+asyncpg://'
-        f'{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@'
-        f'{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{settings.POSTGRES_DB}')
-    params = {'poolclass': NullPool}
-else:
-    DATABASE_URL = (
-        f'postgresql+asyncpg://'
         f'{settings.TEST_POSTGRES_USER}:'
         f'{settings.TEST_POSTGRES_PASSWORD}@'
         f'{settings.TEST_POSTGRES_HOST}:'
         f'{settings.TEST_POSTGRES_PORT}'
     )
+
+    params = {'poolclass': NullPool}
+else:
+    DATABASE_URL = (
+        f'postgresql+asyncpg://'
+        f'{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@'
+        f'{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{settings.POSTGRES_DB}')
+
     params = {}
 
 

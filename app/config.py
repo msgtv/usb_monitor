@@ -13,13 +13,13 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_HOST: str
     POSTGRES_PORT: int
-    POSTGRES_NAME: str
+    POSTGRES_DB: str
 
     TEST_POSTGRES_USER: str
     TEST_POSTGRES_PASSWORD: str
     TEST_POSTGRES_HOST: str
     TEST_POSTGRES_PORT: int
-    TEST_POSTGRES_NAME: str
+    TEST_POSTGRES_DB: str
 
     REDIS_HOST: str
     REDIS_PORT: int

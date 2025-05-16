@@ -46,8 +46,8 @@ async def get_computers_detailed(
 
 
 @router.get('/{computer_id}')
-async def get_computer_by_id(computer_id: int) -> SComputer:
-    computer = await ComputerDAO.get_by_id(computer_id)
+async def get_computer_by_id(computer_id: int) -> SComputerDetailed:
+    computer = await ComputerDAO.get_by_id_detail(computer_id)
 
     if computer:
         return computer

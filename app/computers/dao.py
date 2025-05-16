@@ -11,7 +11,7 @@ class ComputerDAO(BaseDAO):
     model = Computer
 
     @classmethod
-    async def get_all_detailed_paginated(cls, **filter_by):
+    async def get_all_paginated_detailed(cls, **filter_by):
         async with async_session_maker() as session:
             query = (
                 select(cls.model)
@@ -21,8 +21,6 @@ class ComputerDAO(BaseDAO):
                     joinedload(cls.model.department)
                 )
             )
-
-            print(query.compile(compile_kwargs={"literal_binds": True}))
 
             result = await apaginate(session, query)
 

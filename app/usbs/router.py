@@ -1,6 +1,7 @@
 from typing import List, Annotated
 
 from fastapi import APIRouter, Depends
+from fastapi_pagination import Page, LimitOffsetParams
 
 from app.usbs.dao import UsbDAO
 from app.usbs.schemas import SUsb
@@ -15,7 +16,7 @@ router = APIRouter(
 @router.get('')
 async def get_usbs(
         args: Annotated[UsbSearchArgsDepend, Depends(UsbSearchArgsDepend)]
-) -> List[SUsb]:
+) -> Page[SUsb]:
     params = {}
     if args.is_accepted is not None:
         params['is_accepted'] = args.is_accepted
@@ -23,7 +24,7 @@ async def get_usbs(
     if args.class_types:
         usbs = await UsbDAO.get_usbs_by_class_type(args.class_types, **params)
     else:
-        usbs = await UsbDAO.get_all()
+        usbs = await UsbDAO.get_all_paginated(**params)
 
     return usbs
 

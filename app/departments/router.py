@@ -1,6 +1,7 @@
 from typing import List
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
+from fastapi_pagination import Page
 
 from app.departments.dao import DepartmentDAO
 from app.departments.schemas import SDepartment
@@ -12,8 +13,8 @@ router = APIRouter(
 )
 
 @router.get('')
-async def get_departments() -> List[SDepartment]:
-    departments = await DepartmentDAO.get_all()
+async def get_departments() -> Page[SDepartment]:
+    departments = await DepartmentDAO.get_all_paginated()
 
     return departments
 

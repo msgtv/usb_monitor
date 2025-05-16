@@ -1,6 +1,7 @@
 from typing import List, Annotated
 
 from fastapi import APIRouter, Depends
+from fastapi_pagination import Page
 
 from app.computers.dao import ComputerDAO
 from app.computers.schemas import SComputer
@@ -16,14 +17,14 @@ router = APIRouter(
 @router.get('')
 async def get_computers(
         args: Annotated[ComputersSearchArgsDepend, Depends(ComputersSearchArgsDepend)]
-) -> List[SComputer]:
+) -> Page[SComputer]:
     params = {}
     if args.department_id:
         params["department_id"] = args.department_id
     if args.is_accepted_usb:
         params["is_accepted_usb"] = args.is_accepted_usb
 
-    computers = await ComputerDAO.get_all(**params)
+    computers = await ComputerDAO.get_all_paginated(**params)
 
     return computers
 

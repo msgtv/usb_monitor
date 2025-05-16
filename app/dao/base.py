@@ -1,6 +1,7 @@
 from sqlalchemy import select, insert, and_
 
 from app.database import async_session_maker
+from fastapi_pagination.ext.sqlalchemy import apaginate
 
 
 class BaseDAO:
@@ -36,10 +37,23 @@ class BaseDAO:
                 select(cls.model)
                 .filter_by(**filter_by)
                 .where(cls.model.is_deleted.is_(False))
-                .limit(100)
             )
             result = await session.execute(query)
-            return result.scalars().all()
+
+            return result
+
+    @classmethod
+    async def get_all_paginated(cls, **filter_by):
+        async with async_session_maker() as session:
+            query = (
+                select(cls.model)
+                .filter_by(**filter_by)
+                .where(cls.model.is_deleted.is_(False))
+            )
+
+            result = await apaginate(session, query)
+
+            return result
 
     @classmethod
     async def add(cls, **data):

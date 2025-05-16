@@ -1,6 +1,7 @@
 from typing import List
 
 from fastapi import APIRouter
+from fastapi_pagination import Page
 
 from app.tasks.dao import TaskDAO
 from app.tasks.schemas import STask
@@ -11,7 +12,7 @@ router = APIRouter(
 )
 
 @router.get('')
-async def get_tasks() -> List[STask]:
-    tasks = await TaskDAO.get_all()
+async def get_tasks() -> Page[STask]:
+    tasks = await TaskDAO.get_all_paginated()
 
     return tasks

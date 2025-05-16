@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_pagination import add_pagination
 
 from app.departments.router import router as department_router
 from app.departments.employees.router import router as employee_router
@@ -10,6 +11,7 @@ from app.tasks.router import router as task_router
 
 
 app = FastAPI()
+add_pagination(app)
 
 
 ORIGINS = [

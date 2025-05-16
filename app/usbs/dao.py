@@ -1,5 +1,6 @@
 from typing import List
 
+from fastapi_pagination.ext.sqlalchemy import apaginate
 from sqlalchemy import select
 
 from app.dao.base import BaseDAO
@@ -17,10 +18,8 @@ class UsbDAO(BaseDAO):
                 select(cls.model)
                 .filter_by(**filter_by)
                 .where(cls.model.class_type.in_(class_types))
-                # TODO: remove limits
-                .limit(100)
             )
 
-            result = await session.execute(query)
+            result = await apaginate(session, query)
 
-            return result.scalars().all()
+            return result

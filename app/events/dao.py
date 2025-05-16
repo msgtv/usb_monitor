@@ -2,5 +2,5 @@ from app.dao.base import BaseDAO
 from app.events.models import Event
 
 
-class ComputerDAO(BaseDAO):
+class EventDAO(BaseDAO):
     model = Event

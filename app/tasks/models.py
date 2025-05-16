@@ -17,10 +17,10 @@ class Task(Base):
     sheduled_dt: Mapped[datetime] = mapped_column(DateTime, nullable=True)
 
     computer_id: Mapped[int] = mapped_column(ForeignKey('computers.id'), nullable=False)
-    computer: Mapped["Computer"] = relationship("Computer", back_populates="tasks")
+    computer = relationship("Computer", back_populates="tasks")
 
     usb_id: Mapped[int] = mapped_column(ForeignKey('usbs.id'), nullable=False)
-    usb: Mapped["USB"] = relationship("USB", back_populates="tasks")
+    usb = relationship("USB", back_populates="tasks")
 
     def __str__(self):
         return f"Task #{self.id} ({self.action})"

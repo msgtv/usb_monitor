@@ -1,7 +1,7 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.database import Base, int_pk, str_null_true
+from app.database import Base, str_null_true
 
 
 class Employee(Base):
@@ -14,7 +14,8 @@ class Employee(Base):
         nullable=True
     )
 
-    department: Mapped["Department"] = relationship("Department", back_populates="employees")
+    department = relationship("Department", back_populates="employees")
+    events = relationship("Event", back_populates="employee")
 
     def __str__(self) -> str:
         return f"{self.fullname} ({self.username})"

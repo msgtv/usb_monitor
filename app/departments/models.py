@@ -10,17 +10,17 @@ class Department(Base):
     number: Mapped[int_null_true]
     dep_type: Mapped[str_null_true]
 
-    employees: Mapped[List["Employee"]] = relationship(
-        "Employee",
+    computers = relationship(
+        "Computer",
         back_populates="department",
         uselist=True,
     )
-    usbs: Mapped["USB"] = relationship(
+    usbs = relationship(
         "USB",
         back_populates="department",
         uselist=True,
     )
-    employees: Mapped["Employee"] = relationship(
+    employees = relationship(
         "Employee",
         back_populates="department",
         uselist=True,

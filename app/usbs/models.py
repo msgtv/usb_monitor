@@ -1,6 +1,6 @@
 from typing import List
 
-from sqlalchemy import ForeignKey, Boolean, Table, Column
+from sqlalchemy import ForeignKey, Boolean, Table, Column, LargeBinary
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from app.database import Base, str_null_true, int_null_true
@@ -13,11 +13,11 @@ class USB(Base):
     vid: Mapped[str_null_true]
     pid: Mapped[str_null_true]
     class_type: Mapped[int_null_true]
-    data: Mapped[bytes]
+    data: Mapped[bytes] = mapped_column(LargeBinary, nullable=True)
     is_accepted: Mapped[bool] = mapped_column(Boolean, default=False)
 
     department_id: Mapped[int] = mapped_column(ForeignKey("departments.id"), nullable=True)
-    department: Mapped["Department"] = relationship(
+    department = relationship(
         "Department",
         back_populates="usbs",
     )

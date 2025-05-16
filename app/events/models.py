@@ -3,7 +3,8 @@ from datetime import datetime
 from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
-from app.database import Base, int_pk, bool_default_false
+from app.database import Base, bool_default_false
+from app.events.event_sources.models import EventSource
 
 
 class Event(Base):
@@ -14,19 +15,19 @@ class Event(Base):
 
     event_source_id: Mapped[int] = mapped_column(ForeignKey('eventsources.id', name='fk_event_event_source'),
                                               nullable=False)
-    event_source: Mapped["EventSource"] = relationship(
-        "EventSource",
+    event_source = relationship(
+        EventSource,
         back_populates="events",
     )
 
     usb_id: Mapped[int] = mapped_column(ForeignKey("usbs.id", name="fk_event_usb"), nullable=False)
-    usb: Mapped["USB"] = relationship(
+    usb = relationship(
         "USB",
         back_populates="events",
     )
 
     computer_id: Mapped[int] = mapped_column(ForeignKey("computers.id"), nullable=False)
-    computer: Mapped["Computer"] = relationship(
+    computer = relationship(
         "Computer",
         back_populates="events",
     )
@@ -35,7 +36,7 @@ class Event(Base):
         ForeignKey("employees.id", name="fk_event_employee"),
         nullable=True
     )
-    employee: Mapped["Employee"] = relationship(
+    employee = relationship(
         "Employee",
         back_populates="events",
     )

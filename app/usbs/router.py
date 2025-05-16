@@ -20,6 +20,8 @@ async def get_usbs(
     params = {}
     if args.is_accepted is not None:
         params['is_accepted'] = args.is_accepted
+    if args.department_id is not None:
+        params['department_id'] = args.department_id
 
     if args.class_types:
         usbs = await UsbDAO.get_usbs_by_class_type(args.class_types, **params)

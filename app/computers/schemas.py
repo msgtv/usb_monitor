@@ -13,5 +13,5 @@ class SComputer(SComputerBase):
     department_id: Optional[int]
 
 
-class SComputerDetailed(SComputerBase):
+class SComputerDetail(SComputerBase):
     department: Optional[SDepartment]

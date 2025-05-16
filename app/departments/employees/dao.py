@@ -1,5 +1,5 @@
 from fastapi_pagination.ext.sqlalchemy import apaginate
-from sqlalchemy import select
+from sqlalchemy import select, and_
 from sqlalchemy.orm import joinedload
 
 from app.dao.base import BaseDAO
@@ -11,11 +11,47 @@ class EmployeeDAO(BaseDAO):
     model = Employee
 
     @classmethod
+    async def get_all_by_job_title_paginated(cls, job_title, **filter_by):
+        async with async_session_maker() as session:
+            query = (
+                cls.get_select_query(**filter_by)
+                .where(
+                    and_(
+                        cls.model.is_deleted.is_(False),
+                        cls.model.job_title.icontains(job_title),
+                    )
+                )
+            )
+
+            result = await apaginate(session, query)
+
+            return result
+
+    @classmethod
+    async def get_all_by_job_title_paginated_detailed(cls, job_title, **filter_by):
+        async with async_session_maker() as session:
+            query = (
+                cls.get_select_query(**filter_by)
+                .where(
+                    and_(
+                        cls.model.is_deleted.is_(False),
+                        cls.model.job_title.icontains(job_title),
+                    )
+                )
+                .options(
+                    joinedload(cls.model.department),
+                )
+            )
+
+            result = await apaginate(session, query)
+
+            return result
+
+    @classmethod
     async def get_all_paginated_detailed(cls, **filter_by):
         async with async_session_maker() as session:
             query = (
-                select(cls.model)
-                .filter_by(**filter_by)
+                cls.get_select_query(**filter_by)
                 .where(cls.model.is_deleted.is_(False))
                 .options(
                     joinedload(cls.model.department)
@@ -30,8 +66,7 @@ class EmployeeDAO(BaseDAO):
     async def get_by_id_detailed(cls, model_id):
         async with async_session_maker() as session:
             query = (
-                select(cls.model)
-                .filter_by(id=model_id)
+                cls.get_select_query(id=model_id)
                 .where(cls.model.is_deleted.is_(False))
                 .options(
                     joinedload(cls.model.department)

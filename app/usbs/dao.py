@@ -15,8 +15,7 @@ class UsbDAO(BaseDAO):
     async def get_usbs_by_class_type(cls, class_types: List[int], **filter_by):
         async with async_session_maker() as session:
             query = (
-                select(cls.model)
-                .filter_by(**filter_by)
+                cls.get_select_query(**filter_by)
                 .where(cls.model.class_type.in_(class_types))
             )
 

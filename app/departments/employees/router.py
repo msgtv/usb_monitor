@@ -12,6 +12,6 @@ router = APIRouter(
 
 @router.get('')
 async def get_employees() -> List[SEmployee]:
-    employees = await EmployeeDAO().get_all()
+    employees = await EmployeeDAO.get_all()
 
     return employees

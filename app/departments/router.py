@@ -13,13 +13,13 @@ router = APIRouter(
 
 @router.get('')
 async def get_departments() -> List[SDepartment]:
-    departments = await DepartmentDAO().get_all()
+    departments = await DepartmentDAO.get_all()
 
     return departments
 
 @router.get('/{department_id}')
 async def get_department_by_id(department_id: int) -> SDepartment:
-    department = await DepartmentDAO().get_by_id(department_id)
+    department = await DepartmentDAO.get_by_id(department_id)
 
     if department:
         return department

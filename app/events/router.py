@@ -12,6 +12,6 @@ router = APIRouter(
 
 @router.get('')
 async def get_events() -> List[SEvent]:
-    events = await EventDAO().get_all()
+    events = await EventDAO.get_all()
 
     return events

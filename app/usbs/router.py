@@ -1,10 +1,11 @@
-from typing import List
+from typing import List, Annotated
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from app.usbs.dao import UsbDAO
 from app.usbs.schemas import SUsb
 from app.usbs.exceptions import UsbNotFoundException
+from app.usbs.dependencies import UsbSearchArgsDepend
 
 router = APIRouter(
     prefix="/usbs",
@@ -12,8 +13,17 @@ router = APIRouter(
 )
 
 @router.get('')
-async def get_usbs() -> List[SUsb]:
-    usbs = await UsbDAO().get_all()
+async def get_usbs(
+        args: Annotated[UsbSearchArgsDepend, Depends(UsbSearchArgsDepend)]
+) -> List[SUsb]:
+    params = {}
+    if args.is_accepted is not None:
+        params['is_accepted'] = args.is_accepted
+
+    if args.class_types:
+        usbs = await UsbDAO.get_usbs_by_class_type(args.class_types, **params)
+    else:
+        usbs = await UsbDAO.get_all()
 
     return usbs
 

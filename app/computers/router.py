@@ -1,10 +1,11 @@
-from typing import List
+from typing import List, Annotated
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from app.computers.dao import ComputerDAO
 from app.computers.schemas import SComputer
 from app.computers.exceptions import ComputerNotFoundException
+from app.computers.dependencies import ComputersSearchArgsDepend
 
 
 router = APIRouter(
@@ -13,14 +14,22 @@ router = APIRouter(
 )
 
 @router.get('')
-async def get_computers() -> List[SComputer]:
-    computers = await ComputerDAO().get_all()
+async def get_computers(
+        args: Annotated[ComputersSearchArgsDepend, Depends(ComputersSearchArgsDepend)]
+) -> List[SComputer]:
+    params = {}
+    if args.department_id:
+        params["department_id"] = args.department_id
+    if args.is_accepted_usb:
+        params["is_accepted_usb"] = args.is_accepted_usb
+
+    computers = await ComputerDAO.get_all(**params)
 
     return computers
 
 @router.get('/{computer_id}')
 async def get_computer_by_id(computer_id: int) -> SComputer:
-    computer = await ComputerDAO().get_by_id(computer_id)
+    computer = await ComputerDAO.get_by_id(computer_id)
 
     if computer:
         return computer

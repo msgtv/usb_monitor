@@ -12,6 +12,6 @@ router = APIRouter(
 
 @router.get('')
 async def get_tasks() -> List[STask]:
-    tasks = await TaskDAO().get_all()
+    tasks = await TaskDAO.get_all()
 
     return tasks

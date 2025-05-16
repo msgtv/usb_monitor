@@ -14,5 +14,5 @@ class SEmployee(SEmployeeBase):
     department_id: Optional[int]
 
 
-class SEmployeeDetailed(SEmployee):
+class SEmployeeDetailed(SEmployeeBase):
     department: Optional[SDepartment]

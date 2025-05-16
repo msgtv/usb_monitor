@@ -12,7 +12,7 @@ class Event(Base):
     date: Mapped[datetime]
     is_closed: Mapped[bool_default_false]
 
-    event_source_id: Mapped[int] = mapped_column(ForeignKey('event_sources.id', name='fk_event_event_source'),
+    event_source_id: Mapped[int] = mapped_column(ForeignKey('eventsources.id', name='fk_event_event_source'),
                                               nullable=False)
     event_source: Mapped["EventSource"] = relationship(
         "EventSource",
@@ -41,7 +41,7 @@ class Event(Base):
     )
 
     __table_args__ = (
-        UniqueConstraint('event_id', 'source', name='uix__event_id__source'),
+        UniqueConstraint('event_id', 'event_source_id', name='uix__event_id__source'),
     )
 
     def __str__(self):

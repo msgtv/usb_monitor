@@ -4,13 +4,14 @@ from app.schemas.base import SBaseModel
 from app.departments.schemas import SDepartment
 
 
-class SComputer(SBaseModel):
+class SComputerBase(SBaseModel):
     name: str
     is_accepted_usb: bool
+
+
+class SComputer(SComputerBase):
     department_id: Optional[int]
 
 
-class SComputerDetailed(SBaseModel):
-    name: str
-    is_accepted_usb: bool
+class SComputerDetailed(SComputerBase):
     department: Optional[SDepartment]

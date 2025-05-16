@@ -8,11 +8,17 @@ class BaseDAO:
     model = None
 
     @classmethod
+    def get_select_query(cls, **filter_by):
+        return (
+            select(cls.model)
+            .filter_by(**filter_by)
+        )
+
+    @classmethod
     async def get_by_id(cls, model_id):
         async with async_session_maker() as session:
             query = (
-                select(cls.model)
-                .filter_by(id=model_id)
+                cls.get_select_query(id=model_id)
                 .where(cls.model.is_deleted.is_(False))
             )
             result = await session.execute(query)
@@ -22,8 +28,7 @@ class BaseDAO:
     async def get_one_or_none(cls, **filter_by):
         async with async_session_maker() as session:
             query = (
-                select(cls.model)
-                .filter_by(**filter_by)
+                cls.get_select_query(**filter_by)
                 .where(cls.model.is_deleted.is_(False))
             )
             result = await session.execute(query)
@@ -34,8 +39,7 @@ class BaseDAO:
     async def get_all(cls, **filter_by):
         async with async_session_maker() as session:
             query = (
-                select(cls.model)
-                .filter_by(**filter_by)
+                cls.get_select_query(**filter_by)
                 .where(cls.model.is_deleted.is_(False))
             )
             result = await session.execute(query)
@@ -46,8 +50,7 @@ class BaseDAO:
     async def get_all_paginated(cls, **filter_by):
         async with async_session_maker() as session:
             query = (
-                select(cls.model)
-                .filter_by(**filter_by)
+                cls.get_select_query(**filter_by)
                 .where(cls.model.is_deleted.is_(False))
             )
 

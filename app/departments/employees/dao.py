@@ -11,66 +11,11 @@ class EmployeeDAO(BaseDAO):
     model = Employee
 
     @classmethod
-    async def get_all_by_job_title_paginated(cls, job_title, **filter_by):
-        async with async_session_maker() as session:
-            query = (
-                cls.get_select_query(**filter_by)
-                .where(
-                    and_(
-                        cls.model.is_deleted.is_(False),
-                        cls.model.job_title.icontains(job_title),
-                    )
-                )
-            )
+    def set_order_by(cls, query):
+        return query.order_by(cls.model.fullname)
 
-            result = await apaginate(session, query)
 
-            return result
-
+class EmployeeDAODetailed(EmployeeDAO):
     @classmethod
-    async def get_all_by_job_title_paginated_detailed(cls, job_title, **filter_by):
-        async with async_session_maker() as session:
-            query = (
-                cls.get_select_query(**filter_by)
-                .where(
-                    and_(
-                        cls.model.is_deleted.is_(False),
-                        cls.model.job_title.icontains(job_title),
-                    )
-                )
-                .options(
-                    joinedload(cls.model.department),
-                )
-            )
-
-            result = await apaginate(session, query)
-
-            return result
-
-    @classmethod
-    async def get_all_paginated_detailed(cls, **filter_by):
-        async with async_session_maker() as session:
-            query = (
-                cls.get_select_query(**filter_by)
-                .where(cls.model.is_deleted.is_(False))
-                .options(
-                    joinedload(cls.model.department)
-                )
-            )
-
-            result = await apaginate(session, query)
-
-            return result
-
-    @classmethod
-    async def get_by_id_detailed(cls, model_id):
-        async with async_session_maker() as session:
-            query = (
-                cls.get_select_query(id=model_id)
-                .where(cls.model.is_deleted.is_(False))
-                .options(
-                    joinedload(cls.model.department)
-                )
-            )
-            result = await session.execute(query)
-            return result.scalars().one_or_none()
+    def set_options(cls, query):
+        return query.options(joinedload(cls.model.department))

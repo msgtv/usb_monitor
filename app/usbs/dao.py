@@ -12,13 +12,5 @@ class UsbDAO(BaseDAO):
     model = USB
 
     @classmethod
-    async def get_usbs_by_class_type(cls, class_types: List[int], **filter_by):
-        async with async_session_maker() as session:
-            query = (
-                cls.get_select_query(**filter_by)
-                .where(cls.model.class_type.in_(class_types))
-            )
-
-            result = await apaginate(session, query)
-
-            return result
+    def set_order_by(cls, query):
+        return query.order_by(cls.model.name)

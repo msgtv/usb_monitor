@@ -1,0 +1,33 @@
+<div class="filter-section">
+    <div class="filter-title">фильтр</div>
+    <div class="mb-3">
+        <label for="pc-name" class="form-label">по имени пк:</label>
+        <input type="text" class="form-control" id="pc-name" placeholder="Введите имя ПК">
+    </div>
+    <div class="mb-3">
+        <label for="usb-name" class="form-label">с/н usb:</label>
+        <input type="text" class="form-control" id="usb-name" placeholder="Введите серийный номер">
+    </div>
+    <div class="mb-3">
+        <label for="is-completed" class="form-label">is_completed:</label>
+        <select class="form-select" id="is-completed">
+            <option value="">Все</option>
+            <option value="true">Да</option>
+            <option value="false">Нет</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">диапазон дат:</label>
+        <div class="row">
+            <div class="col">
+                <input type="date" class="form-control" id="date-from">
+            </div>
+            <div class="col">
+                <input type="date" class="form-control" id="date-to">
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary w-100 mt-2">
+        <i class="bi bi-funnel me-2"></i>Применить фильтры
+    </button>
+</div>

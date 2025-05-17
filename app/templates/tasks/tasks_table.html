@@ -1,0 +1,103 @@
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div>
+            <i class="bi bi-list-task me-2"></i>Последние задания
+        </div>
+<!--        <button class="btn btn-sm btn-light">-->
+<!--            <i class="bi bi-plus-lg me-1"></i>Добавить задание-->
+<!--        </button>-->
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Действие</th>
+                        <th>ПК</th>
+                        <th>USB устройство</th>
+                        <th>Запланировано</th>
+                        <th>Статус</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>accept</td>
+                        <td>PC-DEV-001</td>
+                        <td>Kingston DataTraveler (SN: 5AF3D78E1B)</td>
+                        <td>17.05.2025 12:00</td>
+                        <td><span class="badge bg-warning text-dark">В процессе</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-success"><i class="bi bi-check-lg"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-lg"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>prohibit</td>
+                        <td>PC-FIN-023</td>
+                        <td>SanDisk Ultra (SN: 4C2B7D9A3F)</td>
+                        <td>17.05.2025 10:30</td>
+                        <td><span class="badge bg-success">Выполнено</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>accept</td>
+                        <td>PC-HR-007</td>
+                        <td>Logitech Mouse (SN: LM785623)</td>
+                        <td>16.05.2025 15:45</td>
+                        <td><span class="badge bg-success">Выполнено</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>prohibit</td>
+                        <td>PC-DEV-015</td>
+                        <td>WD My Passport (SN: 7D3F8A2E6B)</td>
+                        <td>16.05.2025 14:20</td>
+                        <td><span class="badge bg-warning text-dark">В процессе</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-success"><i class="bi bi-check-lg"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-lg"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>accept</td>
+                        <td>PC-MKT-042</td>
+                        <td>Transcend StoreJet (SN: TS9876543)</td>
+                        <td>15.05.2025 09:15</td>
+                        <td><span class="badge bg-success">Выполнено</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Пагинация -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mt-4">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Предыдущая</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Следующая</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

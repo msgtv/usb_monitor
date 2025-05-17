@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter
 from fastapi_pagination import Page
 
-from app.events.dao import EventDAO
+from app.events.dao import EventDAO, EventDAODetailed
 from app.events.schemas import SEvent, SEventDetail
 
 router = APIRouter(
@@ -20,5 +20,5 @@ async def get_events() -> Page[SEvent]:
 
 @router.get('/detailed')
 async def get_events_detailed() -> Page[SEventDetail]:
-    events = await EventDAO.get_all_paginated_detailed()
+    events = await EventDAODetailed.get_all_paginated()
     return events

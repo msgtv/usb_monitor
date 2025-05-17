@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional
 
 from app.schemas.base import SBaseModel
-from app.usbs.schemas import SUsb
+from app.usbs.schemas import SUsbDetail
 from app.computers.schemas import SComputerDetail
 from app.departments.employees.schemas import SEmployeeDetail
 
@@ -20,6 +20,6 @@ class SEvent(SEventBase):
 
 
 class SEventDetail(SEventBase):
-    usb: Optional[SUsb]
+    usb: Optional[SUsbDetail]
     computer: Optional[SComputerDetail]
     employee: Optional[SEmployeeDetail]

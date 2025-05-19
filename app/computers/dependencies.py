@@ -39,7 +39,7 @@ class ComputerPatchArgsDepend:
     @property
     def values(self):
         values = {}
-        if self.is_accepted_usb:
+        if self.is_accepted_usb is not None:
             values['is_accepted_usb'] = self.is_accepted_usb
 
         return values

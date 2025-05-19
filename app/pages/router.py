@@ -60,6 +60,15 @@ async def get_computers_page(
         context={'request': request},
     )
 
+@router.get('/computers/1')
+async def get_computers_page(
+        request: Request,
+):
+    return templates.TemplateResponse(
+        name='computers/computer/main_page.html',
+        context={'request': request},
+    )
+
 @router.get('/usbs')
 async def get_usbs_page(
         request: Request,
@@ -75,5 +84,14 @@ async def get_employees_page(
 ):
     return templates.TemplateResponse(
         name='employees/main_page.html',
+        context={'request': request},
+    )
+
+@router.get('/employees/1')
+async def get_employees_page(
+        request: Request,
+):
+    return templates.TemplateResponse(
+        name='employees/employee/main_page.html',
         context={'request': request},
     )

@@ -26,3 +26,25 @@ class UsbSearchArgsDepend:
             filters.append(USB.department_id == self.department_id)
         
         return filters
+
+
+class UsbManageArgsDepend:
+    def __init__(
+            self,
+            usb_id: int,
+            is_accepted: bool = None,
+            department_id: int = Query(None, ge=1),
+    ):
+        self.usb_id = usb_id
+        self.is_accepted = is_accepted
+        self.department_id = department_id
+
+    @property
+    def values(self):
+        values = {}
+        if self.is_accepted is not None:
+            values['is_accepted'] = self.is_accepted
+        if self.department_id is not None:
+            values['department_id'] = self.department_id
+
+        return values

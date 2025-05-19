@@ -9,3 +9,6 @@ class UsbException(HTTPException):
 
 class UsbNotFoundException(UsbException, ObjectNotFound):
     ...
+
+class UsbOrDepartmentNotFoundException(UsbNotFoundException):
+    ...

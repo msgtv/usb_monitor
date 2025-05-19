@@ -1,12 +1,12 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status, Response
 from fastapi_pagination import Page
 
-from app.usbs.dao import UsbDAO
+from app.usbs.dao import UsbDAO, UsbDetailedDAO
 from app.usbs.schemas import SUsb, SUsbDetail, SUsbDetailedData
-from app.usbs.exceptions import UsbNotFoundException
-from app.usbs.dependencies import UsbSearchArgsDepend
+from app.usbs.exceptions import UsbNotFoundException, UsbOrDepartmentNotFoundException
+from app.usbs.dependencies import UsbSearchArgsDepend, UsbManageArgsDepend
 
 router = APIRouter(
     prefix="/usbs",
@@ -29,7 +29,23 @@ async def get_usb_detailed(
 
 @router.get('/{usb_id}')
 async def get_usb(usb_id: int) -> SUsbDetailedData:
-    usb = await UsbDAO().get_by_id(usb_id)
+    usb = await UsbDetailedDAO().get_by_id(usb_id)
     if usb:
         return usb
     raise UsbNotFoundException(f"No usb found with id {usb_id}")
+
+
+@router.patch('/{usb_id}')
+async def patch_usb(
+        args: Annotated[UsbManageArgsDepend, Depends(UsbManageArgsDepend)],
+) -> SUsb:
+    usb = await UsbDAO().update(usb_id=args.usb_id, **args.values)
+
+    if usb:
+        return usb
+    if args.values.get('department_id'):
+        raise UsbOrDepartmentNotFoundException(
+            detail=f'No usb with id {args.usb_id} '
+                   f'or department with id {args.department_id} found'
+        )
+    raise UsbNotFoundException(f'No usb with id {args.usb_id} found')

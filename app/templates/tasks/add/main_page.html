@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <!-- Основной контент -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="bi bi-plus-lg me-2"></i>Добавление нового задания
+                        </div>
+                        <div class="card-body">
+                            <form id="taskForm" action="/tasks/" method="POST">
+                                <!-- Выбор действия -->
+                                <div class="mb-4">
+                                    <label for="action" class="form-label required-field">Действие</label>
+                                    <select class="form-select" id="action" name="action" required>
+                                        <option value="" selected disabled>Выберите действие</option>
+                                        <option value="accept">Разрешить USB устройство</option>
+                                        <option value="prohibit">Запретить USB устройство</option>
+                                    </select>
+                                </div>
+
+                                <!-- Выбор ПК -->
+                                <div class="mb-4">
+                                    <label for="computer_id" class="form-label required-field">Компьютер</label>
+                                    <select class="form-select" id="computer_id" name="computer_id" required>
+                                        <option value="" selected disabled>Выберите компьютер</option>
+                                        <!-- Опции будут загружены с сервера -->
+                                    </select>
+                                </div>
+
+                                <!-- Выбор USB устройства -->
+                                <div class="mb-4">
+                                    <label for="usb_id" class="form-label required-field">USB устройство</label>
+                                    <select class="form-select" id="usb_id" name="usb_id" required>
+                                        <option value="" selected disabled>Выберите USB устройство</option>
+                                        <!-- Опции будут загружены с сервера -->
+                                    </select>
+                                </div>
+
+<!--                                &lt;!&ndash; Запланированное время &ndash;&gt;-->
+<!--                                <div class="mb-4">-->
+<!--                                    <label for="sheduled_dt" class="form-label">Запланированное время</label>-->
+<!--                                    <input type="datetime-local" class="form-control" id="sheduled_dt" name="sheduled_dt">-->
+<!--                                    <div class="form-text">Если не указано, задание будет выполнено немедленно</div>-->
+<!--                                </div>-->
+
+                                <!-- Комментарий -->
+                                <div class="mb-4">
+                                    <label for="comment" class="form-label">Комментарий</label>
+                                    <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Введите комментарий к заданию"></textarea>
+                                </div>
+
+                                <!-- Кнопки действий -->
+                                <div class="d-flex justify-content-between">
+                                    <a href="/pages/tasks" class="btn btn-outline-secondary">
+                                        <i class="bi bi-arrow-left me-2"></i>Отмена
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-save me-2"></i>Сохранить
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

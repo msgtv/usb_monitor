@@ -1,0 +1,37 @@
+<div>
+    <div class="filter-section">
+        <h5 class="mb-3">Сортировка:</h5>
+        <div class="mb-2">
+            <a href="#" class="text-decoration-none d-block">По имени</a>
+        </div>
+        <div class="mb-2">
+            <a href="#" class="text-decoration-none d-block">По подразделению</a>
+        </div>
+        <div class="mb-2">
+            <a href="#" class="text-decoration-none d-block">По дате добавления</a>
+        </div>
+
+        <h5 class="mb-3">Фильтр</h5>
+        <div class="mb-3">
+            <label for="department" class="form-label">Подразделение:</label>
+            <select class="form-select" id="department">
+                <option value="">Все подразделения</option>
+                <option value="1">Отдел разработки</option>
+                <option value="2">Финансовый отдел</option>
+                <option value="3">Отдел кадров</option>
+                <option value="4">Маркетинг</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="is-accepted-usb" class="form-label">Разрешены USB:</label>
+            <select class="form-select" id="is-accepted-usb">
+                <option value="">Все</option>
+                <option value="true">Да</option>
+                <option value="false">Нет</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary w-100 mt-2">
+            <i class="bi bi-funnel me-2"></i>Применить фильтры
+        </button>
+    </div>
+</div>

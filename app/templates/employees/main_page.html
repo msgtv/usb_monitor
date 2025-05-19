@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<!-- Основной контент -->
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- Фильтры и сортировка -->
+                    {% include 'employees/filter_sort_bar.html' %}
+                </div>
+
+                <!-- Правая колонка -->
+                <div class="col-md-9">
+                    <!-- Таблица работников -->
+                    {% include 'employees/employees_table.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

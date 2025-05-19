@@ -1,11 +1,8 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <div>
-            <i class="bi bi-list-task me-2"></i>Последние задания
+            <i class="bi bi-pc-display me-2"></i>Таблица с пк
         </div>
-        <a href="/pages/tasks/add" class="btn btn-sm btn-light">
-            <i class="bi bi-plus-lg me-1"></i>Добавить задание
-        </a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -13,72 +10,78 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Действие</th>
-                        <th>ПК</th>
-                        <th>USB устройство</th>
-                        <th>Запланировано</th>
+                        <th>Имя ПК</th>
+                        <th>Подразделение</th>
+                        <th>Разрешены USB</th>
                         <th>Статус</th>
+                        <th>Дата добавления</th>
                         <th>Действия</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>Разрешить</td>
                         <td>PC-DEV-001</td>
-                        <td>Kingston DataTraveler (SN: 5AF3D78E1B)</td>
-                        <td>17.05.2025 12:00</td>
-                        <td><span class="badge bg-warning text-dark">В процессе</span></td>
+                        <td>Отдел разработки</td>
+                        <td><span class="badge bg-danger">Нет</span></td>
+                        <td><span class="pc-status status-online"></span> Онлайн</td>
+                        <td>15.05.2025</td>
                         <td>
                             <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
-                            <button class="btn btn-sm btn-outline-success"><i class="bi bi-check-lg"></i></button>
-                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-lg"></i></button>
+                            <button class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>Запретить</td>
                         <td>PC-FIN-023</td>
-                        <td>SanDisk Ultra (SN: 4C2B7D9A3F)</td>
-                        <td>17.05.2025 10:30</td>
-                        <td><span class="badge bg-success">Выполнено</span></td>
+                        <td>Финансовый отдел</td>
+                        <td><span class="badge bg-success">Да</span></td>
+                        <td><span class="pc-status status-online"></span> Онлайн</td>
+                        <td>14.05.2025</td>
                         <td>
                             <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>Разрешить</td>
                         <td>PC-HR-007</td>
-                        <td>Logitech Mouse (SN: LM785623)</td>
-                        <td>16.05.2025 15:45</td>
-                        <td><span class="badge bg-success">Выполнено</span></td>
+                        <td>Отдел кадров</td>
+                        <td><span class="badge bg-success">Да</span></td>
+                        <td><span class="pc-status status-offline"></span> Офлайн</td>
+                        <td>13.05.2025</td>
                         <td>
                             <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td>Запретить</td>
                         <td>PC-DEV-015</td>
-                        <td>WD My Passport (SN: 7D3F8A2E6B)</td>
-                        <td>16.05.2025 14:20</td>
-                        <td><span class="badge bg-warning text-dark">В процессе</span></td>
+                        <td>Отдел разработки</td>
+                        <td><span class="badge bg-danger">Нет</span></td>
+                        <td><span class="pc-status status-warning"></span> Предупреждение</td>
+                        <td>12.05.2025</td>
                         <td>
                             <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
-                            <button class="btn btn-sm btn-outline-success"><i class="bi bi-check-lg"></i></button>
-                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-lg"></i></button>
+                            <button class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>Разрешить</td>
                         <td>PC-MKT-042</td>
-                        <td>Transcend StoreJet (SN: TS9876543)</td>
-                        <td>15.05.2025 09:15</td>
-                        <td><span class="badge bg-success">Выполнено</span></td>
+                        <td>Маркетинг</td>
+                        <td><span class="badge bg-success">Да</span></td>
+                        <td><span class="pc-status status-online"></span> Онлайн</td>
+                        <td>11.05.2025</td>
                         <td>
                             <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>

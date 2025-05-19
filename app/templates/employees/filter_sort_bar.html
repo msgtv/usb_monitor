@@ -1,0 +1,47 @@
+<div>
+    <!-- Полнотекстовый поиск -->
+    <div class="mb-4">
+        <div class="search-box">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Поиск по ФИО, логину или должности" aria-label="Поиск">
+                <button class="btn btn-primary" type="button">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Левая колонка с фильтрами -->
+    <div>
+        <div class="filter-section">
+            <h5>Сортировка:</h5>
+            <a href="#" class="nav-link">
+                <i class="bi bi-sort-alpha-down me-2"></i>По ФИО
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-building me-2"></i>По подразделению
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-briefcase me-2"></i>По должности
+            </a>
+            <h5 class="mt-4">Фильтр:</h5>
+            <div class="mb-3">
+                <label for="department" class="form-label">Подразделение:</label>
+                <select class="form-select" id="department">
+                    <option value="">Все подразделения</option>
+                    <option value="1">Отдел разработки</option>
+                    <option value="2">Финансовый отдел</option>
+                    <option value="3">Отдел кадров</option>
+                    <option value="4">Маркетинг</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="job-title" class="form-label">Должность:</label>
+                <input type="text" class="form-control" id="job-title" placeholder="Введите должность">
+            </div>
+            <button type="button" class="btn btn-primary w-100 mt-2">
+                <i class="bi bi-funnel me-2"></i>Применить фильтры
+            </button>
+        </div>
+    </div>
+</div>

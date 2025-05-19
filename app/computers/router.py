@@ -4,10 +4,9 @@ from fastapi import APIRouter, Depends
 from fastapi_pagination import Page
 
 from app.computers.dao import ComputerDAO, ComputerDAODetailed
-from app.computers.models import Computer
 from app.computers.schemas import SComputer, SComputerDetail
 from app.computers.exceptions import ComputerNotFoundException
-from app.computers.dependencies import ComputersSearchArgsDepend
+from app.computers.dependencies import ComputersSearchArgsDepend, ComputerPatchArgsDepend
 
 router = APIRouter(
     prefix="/computers",
@@ -41,3 +40,11 @@ async def get_computer_by_id(computer_id: int) -> SComputerDetail:
     raise ComputerNotFoundException(f"No computer with id {computer_id}")
 
 
+@router.patch('/{computer_id}')
+async def patch_computer(
+        args: Annotated[ComputerPatchArgsDepend, Depends(ComputerPatchArgsDepend)]
+) -> SComputer:
+    computer = await ComputerDAO.update(computer_id=args.computer_id, **args.values)
+    if computer:
+        return computer
+    raise ComputerNotFoundException(f"No computer with id {args.computer_id}")

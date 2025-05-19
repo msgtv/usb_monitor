@@ -1,7 +1,5 @@
-from typing import List
-
-from fastapi_pagination.ext.sqlalchemy import apaginate
 from sqlalchemy import update
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
 from app.dao.base import BaseDAO
@@ -32,7 +30,7 @@ class UsbDAO(BaseDAO):
                 await session.commit()
 
                 return res.scalars().one_or_none()
-            except Exception:
+            except IntegrityError:
                 return None
 
 

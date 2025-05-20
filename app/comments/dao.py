@@ -2,8 +2,8 @@ from typing import Optional
 
 from fastapi_pagination.ext.sqlalchemy import apaginate
 from sqlalchemy import select, and_
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.database import async_session_maker
 from app.dao.base import BaseDAO
 from app.comments.models import Comment
 from app.computers.models import Computer
@@ -22,7 +22,7 @@ class CommentDAO(BaseDAO):
         return query.order_by(cls.model.created_at.desc())
 
     @classmethod
-    async def add_comment(cls, object_type: str, object_id: int, text: str):
+    async def add_comment(cls, session: AsyncSession, object_type: str, object_id: int, text: str):
         match object_type:
             case 'Department':
                 object_type = Department
@@ -39,27 +39,26 @@ class CommentDAO(BaseDAO):
             case _:
                 return None
 
-        async with async_session_maker() as session:
-            get_obj_query = (
-                select(object_type)
-                .filter_by(id=object_id)
-            )
+        get_obj_query = (
+            select(object_type)
+            .filter_by(id=object_id)
+        )
 
-            res = await session.execute(get_obj_query)
-            obj = res.scalars().one_or_none()
+        res = await session.execute(get_obj_query)
+        obj = res.scalars().one_or_none()
 
-            if obj is None:
-                return None
+        if obj is None:
+            return None
 
-            new_comment = Comment(
-                user='test',  # TODO: username
-                text=text,
-            )
+        new_comment = Comment(
+            user='test',  # TODO: username
+            text=text,
+        )
 
-            new_comment.object = obj
+        new_comment.object = obj
 
-            session.add(new_comment)
+        session.add(new_comment)
 
-            await session.commit()
+        await session.commit()
 
-            return new_comment
+        return new_comment

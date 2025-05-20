@@ -1,10 +1,10 @@
 from sqlalchemy import update
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
 from app.dao.base import BaseDAO
 from app.usbs.models import USB
-from app.database import async_session_maker
 
 
 class UsbDAO(BaseDAO):
@@ -15,23 +15,22 @@ class UsbDAO(BaseDAO):
         return query.order_by(cls.model.name)
 
     @classmethod
-    async def update(cls, usb_id, **values):
-        async with async_session_maker() as session:
-            query = (
-                update(cls.model)
-                .values(**values)
-                .where(cls.model.id == usb_id)
-                .returning(cls.model)
-            )
+    async def update(cls, session: AsyncSession, usb_id: int, **values):
+        query = (
+            update(cls.model)
+            .values(**values)
+            .where(cls.model.id == usb_id)
+            .returning(cls.model)
+        )
 
-            try:
-                res = await session.execute(query)
+        try:
+            res = await session.execute(query)
 
-                await session.commit()
+            await session.commit()
 
-                return res.scalars().one_or_none()
-            except IntegrityError:
-                return None
+            return res.scalars().one_or_none()
+        except IntegrityError:
+            return None
 
 
 class UsbDetailedDAO(UsbDAO):

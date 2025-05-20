@@ -3,7 +3,6 @@ from sqlalchemy import select, and_
 from sqlalchemy.orm import joinedload
 
 from app.dao.base import BaseDAO
-from app.database import async_session_maker
 from app.departments.employees.models import Employee
 
 

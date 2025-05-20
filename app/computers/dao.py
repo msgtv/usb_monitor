@@ -4,7 +4,6 @@ from sqlalchemy.orm import joinedload
 
 from app.dao.base import BaseDAO
 from app.computers.models import Computer
-from app.database import async_session_maker
 
 
 class ComputerDAO(BaseDAO):

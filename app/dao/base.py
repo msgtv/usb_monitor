@@ -1,9 +1,8 @@
 from typing import List
 
 from sqlalchemy import select, insert, and_, BinaryExpression, update
-from sqlalchemy.sql.operators import eq
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.database import async_session_maker
 from fastapi_pagination.ext.sqlalchemy import apaginate
 
 
@@ -49,56 +48,50 @@ class BaseDAO:
         return query.order_by(cls.model.id.desc())
 
     @classmethod
-    async def get_by_id(cls, model_id):
-        async with async_session_maker() as session:
-            query = cls.get_select_query([cls.model.id == model_id])
-            result = await session.execute(query)
-            return result.scalars().one_or_none()
+    async def get_by_id(cls, session: AsyncSession, obj_id):
+        query = cls.get_select_query([cls.model.id == obj_id])
+        result = await session.execute(query)
+        return result.scalars().one_or_none()
 
     @classmethod
-    async def get_one_or_none(cls, filters: List[BinaryExpression] = None):
-        async with async_session_maker() as session:
-            query = cls.get_select_query(filters)
-            result = await session.execute(query)
+    async def get_one_or_none(cls, session: AsyncSession, filters: List[BinaryExpression] = None):
+        query = cls.get_select_query(filters)
+        result = await session.execute(query)
 
-            return result.scalars().one_or_none()
-
-    @classmethod
-    async def get_all(cls, filters: List[BinaryExpression] = None):
-        async with async_session_maker() as session:
-            query = cls.get_select_query(filters)
-            result = await session.execute(query)
-
-            return result
+        return result.scalars().one_or_none()
 
     @classmethod
-    async def get_all_paginated(cls, filters: List[BinaryExpression] = None):
-        async with async_session_maker() as session:
-            query = cls.get_select_query(filters)
+    async def get_all(cls, session: AsyncSession, filters: List[BinaryExpression] = None):
+        query = cls.get_select_query(filters)
+        result = await session.execute(query)
 
-            result = await apaginate(session, query)
-
-            return result
+        return result
 
     @classmethod
-    async def add(cls, **data):
-        async with async_session_maker() as session:
-            query = insert(cls.model).values(**data).returning(cls.model)
-            result = await session.execute(query)
-            await session.commit()
-            return result.scalars().one_or_none()
+    async def get_all_paginated(cls, session: AsyncSession, filters: List[BinaryExpression] = None):
+        query = cls.get_select_query(filters)
+
+        result = await apaginate(session, query)
+
+        return result
 
     @classmethod
-    async def update(cls, object_id, **data):
-        async with async_session_maker() as session:
-            query = (
-                update(cls.model)
-                .values(**data)
-                .where(cls.model.id == object_id)
-                .returning(cls.model)
-            )
+    async def add(cls, session: AsyncSession, **data):
+        query = insert(cls.model).values(**data).returning(cls.model)
+        result = await session.execute(query)
+        await session.commit()
+        return result.scalars().one_or_none()
 
-            res = await session.execute(query)
-            await session.commit()
+    @classmethod
+    async def update(cls, session: AsyncSession, obj_id, **data):
+        query = (
+            update(cls.model)
+            .values(**data)
+            .where(cls.model.id == obj_id)
+            .returning(cls.model)
+        )
 
-            return res.scalars().one_or_none()
+        res = await session.execute(query)
+        await session.commit()
+
+        return res.scalars().one_or_none()

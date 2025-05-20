@@ -1,9 +1,6 @@
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
-from fastapi_pagination import Page, Params
-from fastapi_pagination.api import pagination_ctx
 
-from app.events.router import get_events_detailed
 
 router = APIRouter(
     prefix='/pages',

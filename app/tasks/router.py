@@ -3,8 +3,8 @@ from typing import List, Annotated
 from fastapi import APIRouter, Depends, Path
 from fastapi_pagination import Page
 
+from app.dependencies import SessionDepend
 from app.tasks.dao import TaskDAO, TaskDAODetailed
-from app.tasks.models import Task
 from app.tasks.schemas import STask, STaskDetail
 from app.tasks.exceptions import TaskNotFound, ComputerOrUsbNotFound
 from app.tasks.dependencies import TaskSearchArgsDepend, TaskDetailedSearchArgsDepend, TaskAddArgsDepend
@@ -16,23 +16,28 @@ router = APIRouter(
 
 @router.get('')
 async def get_tasks(
-        args: Annotated[TaskSearchArgsDepend, Depends(TaskSearchArgsDepend)]
+        args: Annotated[TaskSearchArgsDepend, Depends(TaskSearchArgsDepend)],
+        session: SessionDepend,
 ) -> Page[STask]:
-    tasks = await TaskDAO.get_all_paginated(args.filters)
+    tasks = await TaskDAO.get_all_paginated(session=session, filters=args.filters)
 
     return tasks
 
 
 @router.get('/detailed')
 async def get_tasks_detailed(
-        args: Annotated[TaskDetailedSearchArgsDepend, Depends(TaskDetailedSearchArgsDepend)]
+        args: Annotated[TaskDetailedSearchArgsDepend, Depends(TaskDetailedSearchArgsDepend)],
+        session: SessionDepend,
 ) -> Page[STaskDetail]:
-    return await TaskDAODetailed.get_all_paginated(args.filters)
+    return await TaskDAODetailed.get_all_paginated(session=session, filters=args.filters)
 
 
 @router.get('/{task_id}')
-async def get_task_by_id(task_id: int) -> STaskDetail:
-    task = await TaskDAODetailed.get_by_id(task_id)
+async def get_task_by_id(
+        task_id: Annotated[int, Path(ge=1)],
+        session: SessionDepend,
+) -> STaskDetail:
+    task = await TaskDAODetailed.get_by_id(session=session, obj_id=task_id)
     if task:
         return task
     raise TaskNotFound(f"No task found with id {task_id}")
@@ -41,8 +46,9 @@ async def get_task_by_id(task_id: int) -> STaskDetail:
 @router.post('/add')
 async def add_task(
         args: Annotated[TaskAddArgsDepend, Depends(TaskAddArgsDepend)],
+        session: SessionDepend,
 ) -> STask:
-    task = await TaskDAO.add(**args.values)
+    task = await TaskDAO.add(session=session, **args.values)
     if task:
         return task
 
@@ -52,8 +58,9 @@ async def add_task(
 @router.patch('/{task_id}/close')
 async def close_task(
         task_id: Annotated[int, Path(ge=1)],
+        session: SessionDepend,
 ):
-    task = await TaskDAO.update(task_id, is_completed=True)
+    task = await TaskDAO.update(session=session, obj_id=task_id, is_completed=True)
     if task:
         return task
     raise TaskNotFound(detail=f"No task found with id {task_id}")

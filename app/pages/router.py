@@ -3,7 +3,7 @@ from fastapi.templating import Jinja2Templates
 
 
 router = APIRouter(
-    prefix='/pages',
+    prefix='',
     tags=['Фронтэнд'],
 )
 
@@ -11,7 +11,7 @@ router = APIRouter(
 templates = Jinja2Templates(directory='app/templates')
 
 
-@router.get('/main')
+@router.get('/')
 async def get_main_page(
         request: Request,
 ):

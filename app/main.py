@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi_pagination import add_pagination
@@ -40,13 +40,17 @@ app.add_middleware(
     ],
 )
 
-app.include_router(department_router)
-app.include_router(computer_router)
-app.include_router(usb_router)
-app.include_router(employee_router)
-app.include_router(event_router)
-app.include_router(task_router)
+api_router = APIRouter(prefix="/api/v1")
+
+
+api_router.include_router(department_router)
+api_router.include_router(computer_router)
+api_router.include_router(usb_router)
+api_router.include_router(employee_router)
+api_router.include_router(event_router)
+api_router.include_router(task_router)
+api_router.include_router(comment_router)
+app.include_router(api_router)
 app.include_router(page_router)
-app.include_router(comment_router)
 
 add_pagination(app)

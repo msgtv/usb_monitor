@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Path
+from fastapi import APIRouter, Depends, Path, Query
 from fastapi_pagination import Page
 
 from app.computers.dao import ComputerDAO, ComputerDAODetailed

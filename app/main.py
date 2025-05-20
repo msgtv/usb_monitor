@@ -10,6 +10,7 @@ from app.usbs.router import router as usb_router
 from app.events.router import router as event_router
 from app.tasks.router import router as task_router
 from app.pages.router import router as page_router
+from app.comments.router import router as comment_router
 
 
 app = FastAPI()
@@ -46,5 +47,6 @@ app.include_router(employee_router)
 app.include_router(event_router)
 app.include_router(task_router)
 app.include_router(page_router)
+app.include_router(comment_router)
 
 add_pagination(app)

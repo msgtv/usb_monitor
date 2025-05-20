@@ -1,6 +1,6 @@
-from typing import List, Tuple, Annotated, Optional
+from typing import Tuple, Annotated
 
-from fastapi import Query
+from fastapi import Query, Path
 
 from app.usbs.models import USB
 
@@ -31,9 +31,9 @@ class UsbSearchArgsDepend:
 class UsbManageArgsDepend:
     def __init__(
             self,
-            usb_id: int,
+            usb_id: Annotated[int, Path(ge=1)],
             is_accepted: bool = None,
-            department_id: int = Query(None, ge=1),
+            department_id: Annotated[int, Query(ge=1)] = None,
     ):
         self.usb_id = usb_id
         self.is_accepted = is_accepted

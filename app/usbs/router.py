@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status, Response
+from fastapi import APIRouter, Depends, Path
 from fastapi_pagination import Page
 
 from app.usbs.dao import UsbDAO, UsbDetailedDAO
@@ -28,7 +28,7 @@ async def get_usb_detailed(
 
 
 @router.get('/{usb_id}')
-async def get_usb(usb_id: int) -> SUsbDetailedData:
+async def get_usb(usb_id: Annotated[int, Path(ge=1)]) -> SUsbDetailedData:
     usb = await UsbDetailedDAO().get_by_id(usb_id)
     if usb:
         return usb

@@ -1,6 +1,6 @@
-from typing import List
+from typing import Annotated
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Path
 from fastapi_pagination import Page
 
 from app.departments.dao import DepartmentDAO
@@ -19,7 +19,7 @@ async def get_departments() -> Page[SDepartment]:
     return departments
 
 @router.get('/{department_id}')
-async def get_department_by_id(department_id: int) -> SDepartment:
+async def get_department_by_id(department_id: Annotated[int, Path(ge=1)]) -> SDepartment:
     department = await DepartmentDAO.get_by_id(department_id)
 
     if department:

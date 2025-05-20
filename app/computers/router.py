@@ -1,6 +1,6 @@
-from typing import List, Annotated, Union
+from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Path
 from fastapi_pagination import Page
 
 from app.computers.dao import ComputerDAO, ComputerDAODetailed
@@ -32,7 +32,7 @@ async def get_computers_detailed(
 
 
 @router.get('/{computer_id}')
-async def get_computer_by_id(computer_id: int) -> SComputerDetail:
+async def get_computer_by_id(computer_id: Annotated[int, Path(ge=1)]) -> SComputerDetail:
     computer = await ComputerDAODetailed.get_by_id(computer_id)
 
     if computer:

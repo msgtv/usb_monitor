@@ -1,6 +1,6 @@
-from typing import List, Annotated
+from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Path
 from fastapi_pagination import Page
 
 from app.departments.employees.dao import EmployeeDAO, EmployeeDAODetailed
@@ -29,7 +29,7 @@ async def get_employees_detailed(
 
 
 @router.get('/{employee_id}')
-async def get_employee(employee_id: int) -> SEmployeeDetail:
+async def get_employee(employee_id: Annotated[int, Path(ge=1)]) -> SEmployeeDetail:
     employee = await EmployeeDAODetailed.get_by_id(employee_id)
     if employee:
         return employee

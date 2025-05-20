@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import Query
 
 from app.departments.employees.models import Employee
@@ -6,8 +8,8 @@ from app.departments.employees.models import Employee
 class EmployeesSearchArgsDepend:
     def __init__(
             self,
-            department_id: int = Query(None, gt=0),
-            job_title: str = Query(None, description='Должность (например, "Начальник", "Инженер")'),
+            department_id: Annotated[int, Query(ge=1)] = None,
+            job_title: Annotated[str, Query(description='Должность (например, "Начальник", "Инженер")')] = None,
     ):
         self.department_id = department_id
         self.job_title = job_title

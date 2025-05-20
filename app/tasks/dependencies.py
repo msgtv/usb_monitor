@@ -1,16 +1,17 @@
+from typing import Annotated
+
 from fastapi import Query
 
 from app.tasks.models import Task
 from app.computers.models import Computer
-from app.usbs.models import USB
 
 
 class TaskSearchArgsDepend:
     def __init__(
             self,
-            computer_id: int = Query(None, gt=0),
-            usb_id: int = Query(None, gt=0),
-            is_completed: bool = Query(None),
+            computer_id: Annotated[int, Query(ge=1)] = None,
+            usb_id: Annotated[int, Query(ge=1)] = None,
+            is_completed: Annotated[bool, Query()] = None,
     ):
         self.computer_id = computer_id
         self.usb_id = usb_id
@@ -33,11 +34,11 @@ class TaskSearchArgsDepend:
 class TaskDetailedSearchArgsDepend(TaskSearchArgsDepend):
     def __init__(
             self,
-            department_id: int = Query(None, gt=0),
-            computer_id: int = Query(None, gt=0),
-            usb_id: int = Query(None, gt=0),
-            is_completed: bool = Query(None),
-            usb_sn: str = Query(None, description='Серийный номер USB-устройства')
+            department_id: Annotated[int, Query(gt=0)] = None,
+            computer_id: Annotated[int, Query(gt=0)] = None,
+            usb_id: Annotated[int, Query(gt=0)] = None,
+            is_completed: Annotated[bool, Query()] = None,
+            usb_sn: Annotated[str, Query(description='Серийный номер USB-устройства')] = None
     ):
         super().__init__(
             computer_id=computer_id,

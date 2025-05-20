@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Annotated
 
-from fastapi import Query
+from fastapi import Query, Path
 from sqlalchemy import BinaryExpression
 
 from app.computers.models import Computer
@@ -9,8 +9,8 @@ from app.computers.models import Computer
 class ComputersSearchArgsDepend:
     def __init__(
             self,
-            department_id: int = Query(None, gt=0),
-            is_accepted_usb: bool = None,
+            department_id: Annotated[int, Query(gt=0)] = None,
+            is_accepted_usb: Annotated[bool, Query()] = None,
     ):
         self.department_id = department_id
         self.is_accepted_usb = is_accepted_usb
@@ -30,8 +30,8 @@ class ComputersSearchArgsDepend:
 class ComputerPatchArgsDepend:
     def __init__(
             self,
-            computer_id: int,
-            is_accepted_usb: bool,
+            computer_id: Annotated[int, Path(ge=1)],
+            is_accepted_usb: Annotated[bool, Query()],
     ):
         self.computer_id = computer_id
         self.is_accepted_usb = is_accepted_usb

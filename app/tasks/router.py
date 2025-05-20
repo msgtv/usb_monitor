@@ -1,6 +1,6 @@
 from typing import List, Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Path
 from fastapi_pagination import Page
 
 from app.tasks.dao import TaskDAO, TaskDAODetailed
@@ -31,7 +31,7 @@ async def get_tasks_detailed(
 
 
 @router.get('/{task_id}')
-async def get_task_by_id(task_id: int) -> STaskDetail:
+async def get_task_by_id(task_id: Annotated[int, Path(ge=1)]) -> STaskDetail:
     task = await TaskDAO.get_by_id(task_id)
     if task:
         return task

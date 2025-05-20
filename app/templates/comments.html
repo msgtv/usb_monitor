@@ -1,0 +1,60 @@
+<div class="card mt-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div>
+            <i class="bi bi-chat-left-text me-2"></i>Комментарии и примечания
+        </div>
+    </div>
+    <div class="card-body">
+        <!-- Форма добавления комментария -->
+        <form id="commentForm">
+            <div class="mb-3 d-flex">
+                <textarea class="form-control me-2" id="commentText" rows="3" placeholder="Введите текст комментария"></textarea>
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-send me-2"></i>Отправить
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Существующие комментарии -->
+        <div class="comments-list mb-4">
+            <div class="comment mb-3">
+                <div class="d-flex">
+                    <div class="comment-avatar me-3">
+                        <div class="user-avatar">ИИ</div>
+                    </div>
+                    <div class="comment-content flex-grow-1">
+                        <div class="comment-header d-flex justify-content-between">
+                            <div>
+                                <span class="fw-bold">Иванов Иван Иванович</span>
+                                <span class="text-muted ms-2">17.05.2025 09:45</span>
+                            </div>
+                        </div>
+                        <div class="comment-text mt-2">
+                            Компьютер используется для разработки программного обеспечения. Подключение USB-устройств ограничено в соответствии с политикой безопасности.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="comment mb-3">
+                <div class="d-flex">
+                    <div class="comment-avatar me-3">
+                        <div class="user-avatar">НВ</div>
+                    </div>
+                    <div class="comment-content flex-grow-1">
+                        <div class="comment-header d-flex justify-content-between">
+                            <div>
+                                <span class="fw-bold">Новиков Владимир</span>
+                                <span class="text-muted ms-2">16.05.2025 14:30</span>
+                            </div>
+                        </div>
+                        <div class="comment-text mt-2">
+                            Установлено обновление системы безопасности. Проверена работа агента контроля USB-устройств.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

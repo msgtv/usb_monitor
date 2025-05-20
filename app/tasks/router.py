@@ -51,7 +51,7 @@ async def add_task(
 
 @router.patch('/{task_id}/close')
 async def close_task(
-        task_id: int,
+        task_id: Annotated[int, Path(ge=1)],
 ):
     task = await TaskDAO.update(task_id, is_completed=True)
     if task:

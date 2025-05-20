@@ -1,6 +1,6 @@
 from typing import Annotated, Literal
 
-from fastapi import Query
+from fastapi import Query, Body
 
 from app.tasks.models import Task
 from app.computers.models import Computer
@@ -63,9 +63,9 @@ class TaskDetailedSearchArgsDepend(TaskSearchArgsDepend):
 class TaskAddArgsDepend:
     def __init__(
             self,
-            action: Literal['accept', 'prohibit'],
-            computer_id: int = Query(gt=0),
-            usb_id: int = Query(gt=0),
+            action: Annotated[Literal['accept', 'prohibit'], Body()],
+            computer_id: Annotated[int, Body(gt=0)],
+            usb_id: Annotated[int, Body(gt=0)],
     ):
         self.action = action
         self.computer_id = computer_id

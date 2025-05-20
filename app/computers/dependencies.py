@@ -1,6 +1,6 @@
 from typing import List, Annotated
 
-from fastapi import Query, Path
+from fastapi import Query, Path, Body
 from sqlalchemy import BinaryExpression
 
 from app.computers.models import Computer
@@ -31,7 +31,7 @@ class ComputerPatchArgsDepend:
     def __init__(
             self,
             computer_id: Annotated[int, Path(ge=1)],
-            is_accepted_usb: Annotated[bool, Query()],
+            is_accepted_usb: Annotated[bool, Body(embed=True)],
     ):
         self.computer_id = computer_id
         self.is_accepted_usb = is_accepted_usb

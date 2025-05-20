@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Literal
 
 from fastapi import Query
 
@@ -59,3 +59,22 @@ class TaskDetailedSearchArgsDepend(TaskSearchArgsDepend):
 
         return filters
 
+
+class TaskAddArgsDepend:
+    def __init__(
+            self,
+            action: Literal['accept', 'prohibit'],
+            computer_id: int = Query(gt=0),
+            usb_id: int = Query(gt=0),
+    ):
+        self.action = action
+        self.computer_id = computer_id
+        self.usb_id = usb_id
+
+    @property
+    def values(self):
+        return {
+            'action': self.action,
+            'computer_id': self.computer_id,
+            'usb_id': self.usb_id,
+        }

@@ -9,3 +9,7 @@ class TaskException(HTTPException):
 
 class TaskNotFound(TaskException, ObjectNotFound):
     ...
+
+
+class ComputerOrUsbNotFound(TaskException, ObjectNotFound):
+    ...

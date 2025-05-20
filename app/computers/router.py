@@ -44,7 +44,7 @@ async def get_computer_by_id(computer_id: Annotated[int, Path(ge=1)]) -> SComput
 async def patch_computer(
         args: Annotated[ComputerPatchArgsDepend, Depends(ComputerPatchArgsDepend)]
 ) -> SComputer:
-    computer = await ComputerDAO.update(computer_id=args.computer_id, **args.values)
+    computer = await ComputerDAO.update(object_id=args.computer_id, **args.values)
     if computer:
         return computer
     raise ComputerNotFoundException(f"No computer with id {args.computer_id}")

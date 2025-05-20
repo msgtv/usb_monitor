@@ -1,6 +1,6 @@
 from typing import List
 
-from sqlalchemy import select, insert, and_, BinaryExpression
+from sqlalchemy import select, insert, and_, BinaryExpression, update
 from sqlalchemy.sql.operators import eq
 
 from app.database import async_session_maker
@@ -83,6 +83,22 @@ class BaseDAO:
     @classmethod
     async def add(cls, **data):
         async with async_session_maker() as session:
-            query = insert(cls.model).values(**data).returning(cls.model.id)
-            await session.execute(query)
+            query = insert(cls.model).values(**data).returning(cls.model)
+            result = await session.execute(query)
             await session.commit()
+            return result.scalars().one_or_none()
+
+    @classmethod
+    async def update(cls, object_id, **data):
+        async with async_session_maker() as session:
+            query = (
+                update(cls.model)
+                .values(**data)
+                .where(cls.model.id == object_id)
+                .returning(cls.model)
+            )
+
+            res = await session.execute(query)
+            await session.commit()
+
+            return res.scalars().one_or_none()

@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -14,8 +16,8 @@ class Employee(Base):
         nullable=True
     )
 
-    department = relationship("Department", back_populates="employees")
-    events = relationship("Event", back_populates="employee")
+    department: Mapped["Department"] = relationship("Department", back_populates="employees")
+    events: Mapped[List["Event"]] = relationship("Event", back_populates="employee")
 
     def __str__(self) -> str:
         return f"{self.fullname} ({self.username})"

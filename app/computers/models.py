@@ -11,7 +11,7 @@ class Computer(Base):
     is_accepted_usb: Mapped[bool_default_false]
 
     department_id: Mapped[int] = mapped_column(ForeignKey("departments.id"), nullable=True)
-    department = relationship(
+    department: Mapped["Department"] = relationship(
         "Department",
         back_populates="computers",
     )

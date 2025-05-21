@@ -17,7 +17,7 @@ class USB(Base):
     is_accepted: Mapped[bool] = mapped_column(Boolean, default=False)
 
     department_id: Mapped[int] = mapped_column(ForeignKey("departments.id"), nullable=True)
-    department = relationship(
+    department: Mapped["Department"] = relationship(
         "Department",
         back_populates="usbs",
     )

@@ -15,19 +15,19 @@ class Event(Base):
 
     event_source_id: Mapped[int] = mapped_column(ForeignKey('eventsources.id', name='fk_event_event_source'),
                                               nullable=False)
-    event_source = relationship(
+    event_source: Mapped["EventSource"] = relationship(
         EventSource,
         back_populates="events",
     )
 
     usb_id: Mapped[int] = mapped_column(ForeignKey("usbs.id", name="fk_event_usb"), nullable=False)
-    usb = relationship(
+    usb: Mapped["USB"] = relationship(
         "USB",
         back_populates="events",
     )
 
     computer_id: Mapped[int] = mapped_column(ForeignKey("computers.id"), nullable=False)
-    computer = relationship(
+    computer: Mapped["Computer"] = relationship(
         "Computer",
         back_populates="events",
     )
@@ -36,7 +36,7 @@ class Event(Base):
         ForeignKey("employees.id", name="fk_event_employee"),
         nullable=True
     )
-    employee = relationship(
+    employee: Mapped["Employee"] = relationship(
         "Employee",
         back_populates="events",
     )

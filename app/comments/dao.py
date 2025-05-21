@@ -59,6 +59,6 @@ class CommentDAO(BaseDAO):
 
         session.add(new_comment)
 
-        await session.commit()
+        await session.flush()
 
         return new_comment

@@ -79,7 +79,7 @@ class BaseDAO:
     async def add(cls, session: AsyncSession, **data):
         query = insert(cls.model).values(**data).returning(cls.model)
         result = await session.execute(query)
-        await session.commit()
+        await session.flush()
         return result.scalars().one_or_none()
 
     @classmethod
@@ -92,6 +92,6 @@ class BaseDAO:
         )
 
         res = await session.execute(query)
-        await session.commit()
+        await session.flush()
 
         return res.scalars().one_or_none()

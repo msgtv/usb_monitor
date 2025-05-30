@@ -34,7 +34,7 @@ class AuthService:
     async def verify_token(self, token: str):
         headers = {'Authorization': f'Bearer {token}'}
         response = await self.client.get(
-            "/users/me", 
+            "/auth/me", 
             headers=headers,
         )
 

@@ -1,9 +1,9 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Response, status
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 
-from app.auth.dependencies import auth_service, CurrentUser
+from app.auth.dependencies import auth_service, DefaultUser
 from app.auth.schemas import AccessToken, Tokens, RefreshToken, UserInDB, oauth2_scheme
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -52,6 +52,6 @@ async def logout(
 
 @router.get("/me")
 async def me(
-    user: CurrentUser,
+    user: Annotated[UserInDB, Depends(DefaultUser)],
 ) -> UserInDB:
     return user

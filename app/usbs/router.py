@@ -8,6 +8,7 @@ from app.usbs.dao import UsbDAO, UsbDetailedDAO
 from app.usbs.schemas import SUsb, SUsbDetail, SUsbDetailedData
 from app.usbs.exceptions import UsbNotFoundException, UsbOrDepartmentNotFoundException
 from app.usbs.dependencies import UsbSearchArgsDepend, UsbManageArgsDepend
+from app.auth.dependencies import DefaultUser, ManagerUser, AdminUser, RootUser
 
 
 router = APIRouter(
@@ -16,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.get('')
+@router.get('', dependencies=[Depends(DefaultUser)])
 async def get_usbs(
         args: Annotated[UsbSearchArgsDepend, Depends(UsbSearchArgsDepend)],
         session: SessionDepend,
@@ -24,7 +25,7 @@ async def get_usbs(
     return await UsbDAO.get_all_paginated(session=session, filters=args.filters)
 
 
-@router.get('/detailed')
+@router.get('/detailed', dependencies=[Depends(ManagerUser)])
 async def get_usb_detailed(
         args: Annotated[UsbSearchArgsDepend, Depends(UsbSearchArgsDepend)],
         session: SessionDepend,
@@ -32,7 +33,7 @@ async def get_usb_detailed(
     return await UsbDAO.get_all_paginated(session=session, filters=args.filters)
 
 
-@router.get('/{usb_id}')
+@router.get('/{usb_id}', dependencies=[Depends(DefaultUser)])
 async def get_usb(
         usb_id: Annotated[int, Path(ge=1)],
         session: SessionDepend,
@@ -43,7 +44,7 @@ async def get_usb(
     raise UsbNotFoundException(f"No usb found with id {usb_id}")
 
 
-@router.patch('/{usb_id}')
+@router.patch('/{usb_id}', dependencies=[Depends(AdminUser)])
 async def patch_usb(
         args: Annotated[UsbManageArgsDepend, Depends(UsbManageArgsDepend)],
         session: SessionDepend,

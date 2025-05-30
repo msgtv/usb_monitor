@@ -1,5 +1,8 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
+from typing import Annotated
+
+from app.auth.dependencies import DefaultUser, ManagerUser, AdminUser, RootUser
 
 
 router = APIRouter(
@@ -11,7 +14,7 @@ router = APIRouter(
 templates = Jinja2Templates(directory='app/templates')
 
 
-@router.get('/')
+@router.get('/', dependencies=[Depends(DefaultUser)])
 async def get_main_page(
         request: Request,
 ):
@@ -20,7 +23,7 @@ async def get_main_page(
         context={'request': request},
     )
 
-@router.get('/events')
+@router.get('/events', dependencies=[Depends(DefaultUser)])
 async def get_events_page(
         request: Request,
 ):
@@ -30,7 +33,7 @@ async def get_events_page(
     )
 
 
-@router.get('/tasks')
+@router.get('/tasks', dependencies=[Depends(ManagerUser)])
 async def get_tasks_page(
         request: Request,
 ):
@@ -39,7 +42,7 @@ async def get_tasks_page(
         context={'request': request},
     )
 
-@router.get('/tasks/add')
+@router.get('/tasks/add', dependencies=[Depends(ManagerUser)])
 async def get_tasks_add_page(
         request: Request,
 ):
@@ -48,7 +51,7 @@ async def get_tasks_add_page(
         context={'request': request},
     )
 
-@router.get('/computers')
+@router.get('/computers', dependencies=[Depends(DefaultUser)])
 async def get_computers_page(
         request: Request,
 ):
@@ -57,7 +60,7 @@ async def get_computers_page(
         context={'request': request},
     )
 
-@router.get('/computers/1')
+@router.get('/computers/1', dependencies=[Depends(DefaultUser)])
 async def get_computers_page(
         request: Request,
 ):
@@ -66,7 +69,7 @@ async def get_computers_page(
         context={'request': request},
     )
 
-@router.get('/usbs')
+@router.get('/usbs', dependencies=[Depends(DefaultUser)])
 async def get_usbs_page(
         request: Request,
 ):
@@ -75,7 +78,7 @@ async def get_usbs_page(
         context={'request': request},
     )
 
-@router.get('/employees')
+@router.get('/employees', dependencies=[Depends(DefaultUser)])
 async def get_employees_page(
         request: Request,
 ):
@@ -84,7 +87,7 @@ async def get_employees_page(
         context={'request': request},
     )
 
-@router.get('/employees/1')
+@router.get('/employees/1', dependencies=[Depends(DefaultUser)])
 async def get_employees_page(
         request: Request,
 ):

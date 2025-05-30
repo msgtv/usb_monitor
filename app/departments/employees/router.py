@@ -8,6 +8,7 @@ from app.departments.employees.dao import EmployeeDAO, EmployeeDAODetailed
 from app.departments.employees.dependencies import EmployeesSearchArgsDepend
 from app.departments.employees.schemas import SEmployee, SEmployeeDetail
 from app.departments.employees.exceptions import EmployeeNotFound
+from app.auth.dependencies import DefaultUser, ManagerUser, AdminUser, RootUser
 
 
 router = APIRouter(
@@ -15,7 +16,7 @@ router = APIRouter(
     tags=["Работники"],
 )
 
-@router.get('')
+@router.get('', dependencies=[Depends(DefaultUser)])
 async def get_employees(
         args: Annotated[EmployeesSearchArgsDepend, Depends(EmployeesSearchArgsDepend)],
         session: SessionDepend,
@@ -23,7 +24,7 @@ async def get_employees(
     return await EmployeeDAO.get_all_paginated(session=session, filters=args.filters)
 
 
-@router.get('/detailed')
+@router.get('/detailed', dependencies=[Depends(ManagerUser)])
 async def get_employees_detailed(
     args: Annotated[EmployeesSearchArgsDepend, Depends(EmployeesSearchArgsDepend)],
         session: SessionDepend,
@@ -31,7 +32,7 @@ async def get_employees_detailed(
     return await EmployeeDAODetailed.get_all_paginated(session=session, filters=args.filters)
 
 
-@router.get('/{employee_id}')
+@router.get('/{employee_id}', dependencies=[Depends(DefaultUser)])
 async def get_employee(
         employee_id: Annotated[int, Path(ge=1)],
         session: SessionDepend,

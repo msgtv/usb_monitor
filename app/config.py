@@ -8,6 +8,7 @@ class Settings(BaseSettings):
 
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
+    AUTH_SERVER_URL: str
 
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str

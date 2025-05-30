@@ -11,6 +11,7 @@ from app.events.router import router as event_router
 from app.tasks.router import router as task_router
 from app.pages.router import router as page_router
 from app.comments.router import router as comment_router
+from app.auth.router import router as auth_router
 
 
 app = FastAPI()
@@ -43,6 +44,7 @@ app.add_middleware(
 api_router = APIRouter(prefix="/api/v1")
 
 
+api_router.include_router(auth_router)
 api_router.include_router(department_router)
 api_router.include_router(computer_router)
 api_router.include_router(usb_router)

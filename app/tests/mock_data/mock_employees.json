@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "fullname": "John Smith",
+        "username": "jsmith",
+        "job_title": "System Administrator",
+        "department_id": 1
+    },
+    {
+        "id": 2,
+        "fullname": "Alice Johnson",
+        "username": "ajohnson",
+        "job_title": "HR Manager",
+        "department_id": 2
+    },
+    {
+        "id": 3,
+        "fullname": "Bob Wilson",
+        "username": "bwilson",
+        "job_title": "Software Engineer",
+        "department_id": 3
+    },
+    {
+        "id": 4,
+        "fullname": "Emma Davis",
+        "username": "edavis",
+        "job_title": "Financial Analyst",
+        "department_id": 4
+    }
+] 

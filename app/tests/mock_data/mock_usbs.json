@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Kingston DataTraveler",
+        "vendor": "Kingston",
+        "sn": "0123456789ABCDEF",
+        "vid": "0951",
+        "pid": "1666",
+        "class_type": 8,
+        "is_accepted": true,
+        "department_id": 1,
+        "data": null
+    },
+    {
+        "id": 2,
+        "name": "SanDisk Ultra",
+        "vendor": "SanDisk",
+        "sn": "98765432FEDCBA10",
+        "vid": "0781",
+        "pid": "5567",
+        "class_type": 8,
+        "is_accepted": false,
+        "department_id": 2,
+        "data": null
+    },
+    {
+        "id": 3,
+        "name": "Logitech Mouse",
+        "vendor": "Logitech",
+        "sn": "ABCDEF0123456789",
+        "vid": "046d",
+        "pid": "c52b",
+        "class_type": 3,
+        "is_accepted": true,
+        "department_id": 3,
+        "data": null
+    }
+] 

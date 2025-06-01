@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "IT Department",
+        "number": 101,
+        "dep_type": "technical"
+    },
+    {
+        "id": 2,
+        "name": "HR Department",
+        "number": 102,
+        "dep_type": "administrative"
+    },
+    {
+        "id": 3,
+        "name": "Engineering",
+        "number": 103,
+        "dep_type": "technical"
+    },
+    {
+        "id": 4,
+        "name": "Finance",
+        "number": 104,
+        "dep_type": "administrative"
+    }
+] 

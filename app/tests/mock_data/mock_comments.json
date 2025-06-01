@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "object_type": "USB",
+        "object_id": 1,
+        "user": "jsmith",
+        "text": "Approved this USB device for IT department use"
+    },
+    {
+        "id": 2,
+        "object_type": "Event",
+        "object_id": 1,
+        "user": "ajohnson",
+        "text": "Investigating this USB connection event"
+    },
+    {
+        "id": 3,
+        "object_type": "Task",
+        "object_id": 1,
+        "user": "bwilson",
+        "text": "Task completed successfully"
+    }
+] 

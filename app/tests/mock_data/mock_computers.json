@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "DESKTOP-IT01",
+        "is_accepted_usb": true,
+        "department_id": 1
+    },
+    {
+        "id": 2,
+        "name": "LAPTOP-HR02",
+        "is_accepted_usb": false,
+        "department_id": 2
+    },
+    {
+        "id": 3,
+        "name": "WORKSTATION-ENG03",
+        "is_accepted_usb": true,
+        "department_id": 3
+    },
+    {
+        "id": 4,
+        "name": "DESKTOP-FIN04",
+        "is_accepted_usb": false,
+        "department_id": 4
+    }
+] 

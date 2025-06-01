@@ -17,6 +17,7 @@ sqladmin
 itsdangerous
 pytest
 pytest-asyncio
+pytest-mock
 httpx
 sqlalchemy_utils
 fastapi_pagination

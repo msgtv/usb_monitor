@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "action": "accept",
+        "is_completed": true,
+        "sheduled_dt": "2024-03-15T09:00:00",
+        "computer_id": 1,
+        "usb_id": 1
+    },
+    {
+        "id": 2,
+        "action": "prohibit",
+        "is_completed": false,
+        "sheduled_dt": "2024-03-15T12:00:00",
+        "computer_id": 2,
+        "usb_id": 2
+    },
+    {
+        "id": 3,
+        "action": "accept",
+        "is_completed": false,
+        "sheduled_dt": "2024-03-15T15:00:00",
+        "computer_id": 3,
+        "usb_id": 3
+    }
+] 

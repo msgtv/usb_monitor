@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "data_source_name": "Windows Event Log",
+        "name": "Primary Windows Events",
+        "db_type": "mssql",
+        "conn_params": {
+            "host": "sql-server-01",
+            "port": 1433,
+            "database": "WindowsEvents",
+            "username": "event_reader"
+        }
+    },
+    {
+        "id": 2,
+        "data_source_name": "Linux Syslog",
+        "name": "Linux System Events",
+        "db_type": "postgresql",
+        "conn_params": {
+            "host": "postgres-01",
+            "port": 5432,
+            "database": "syslog",
+            "username": "log_reader"
+        }
+    }
+] 
